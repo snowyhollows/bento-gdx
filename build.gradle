@@ -1,0 +1,19 @@
+group 'net.snowyhollows.bento'
+version '1.0.1-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'maven'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile "com.badlogicgames.gdx:gdx:1.6.4"
+    compile "com.badlogicgames.ashley:ashley:1.7.0"
+    compile "net.snowyhollows.bento:bento2-core:1.0.1-SNAPSHOT"
+}
