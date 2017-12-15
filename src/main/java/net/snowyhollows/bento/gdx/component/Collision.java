@@ -3,6 +3,7 @@ package net.snowyhollows.bento.gdx.component;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Family;
+import com.badlogic.gdx.math.Rectangle;
 import net.snowyhollows.bento.gdx.util.LevelWalker;
 
 public class Collision implements Component {
@@ -17,11 +18,15 @@ public class Collision implements Component {
     public int vsubdivision = 1;
     public int hsubdivision = 1;
 
+    public final Rectangle rect = new Rectangle();
+
     public Collision(float width, float height, float horizontalOffset, float verticalOffset) {
         this.width = width;
         this.height = height;
         this.horizontalOffset = horizontalOffset;
         this.verticalOffset = verticalOffset;
+        rect.width = width;
+        rect.height = height;
     }
 
     public Collision(float width, float height, float horizontalOffset, float verticalOffset, int hsubdivision, int vsubdivision) {
@@ -31,6 +36,8 @@ public class Collision implements Component {
         this.verticalOffset = verticalOffset;
         this.hsubdivision = hsubdivision;
         this.vsubdivision = vsubdivision;
+        rect.width = width;
+        rect.height = height;
     }
 
     private LevelWalker.CollisionPoint[] collisionPoints;

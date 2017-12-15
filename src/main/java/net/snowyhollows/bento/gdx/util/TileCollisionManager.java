@@ -7,7 +7,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.utils.Array;
 
-public class TileCollisionManager<T> implements LevelWalker.Collider {
+public class TileCollisionManager<T> implements LevelWalker.Collider<T> {
 
     private final Array<TiledMapTileLayer> layers = new Array<TiledMapTileLayer>();
     private TiledMapTileLayer collisionLayer;
@@ -146,7 +146,12 @@ public class TileCollisionManager<T> implements LevelWalker.Collider {
     }
 
     @Override
-    public boolean collides(float x, float y) {
+    public T collisionAt(float x, float y) {
+        return this.tileAtPixel(x, y);
+    }
+
+    @Override
+    public boolean collides(float x, float y, float dx, float dy) {
         return tileAtPixel(x, y) != null;
     }
 

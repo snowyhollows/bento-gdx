@@ -53,6 +53,11 @@ public class Physics extends IteratingSystem {
         speed.collisionLeft = levelWalker.isLeftCollision();
         speed.collisionRight = levelWalker.isRightCollision();
 
+        speed.tileCollisionLeft = levelWalker.getLeftCollision();
+        speed.tileCollisionRight = levelWalker.getRightCollision();
+        speed.tileCollisionDown = levelWalker.getBottomCollision();
+        speed.tileCollisionUp = levelWalker.getTopCollision();
+
         if (speed.collisionLeft || speed.collisionRight) {
             speed.dx = 0;
         }

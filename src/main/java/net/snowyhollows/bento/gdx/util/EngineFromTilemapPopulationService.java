@@ -60,7 +60,7 @@ public class EngineFromTilemapPopulationService {
                     TextureMapObject tmo = (TextureMapObject) ob;
                     objectBento.register("x", (tmo.getX() + tmo.getTextureRegion().getRegionWidth() / 2));
                     // a trick: texture objects coordinates point to BOTTOM-left, all other point to TOP-left. We have to compensate for that.
-                    objectBento.register("y", (tmo.getY() + tmo.getTextureRegion().getRegionHeight() * 1.5f));
+                    objectBento.register("y", (tmo.getY() + tmo.getTextureRegion().getRegionHeight() * 0.5f));
                     objectBento.register("width", tmo.getTextureRegion().getRegionWidth());
                     objectBento.register("height", tmo.getTextureRegion().getRegionHeight());
                     Gdx.app.log("chorizo", "texture map object detected: " + tmo.getX() + ":" + tmo.getY());

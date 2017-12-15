@@ -21,7 +21,12 @@ public class Speed implements Component{
     public boolean collisionDown;
     public boolean collisionLeft;
     public boolean collisionRight;
-    
+
+    public Object tileCollisionDown;
+    public Object tileCollisionUp;
+    public Object tileCollisionLeft;
+    public Object tileCollisionRight;
+
     public void stop() {
         dx = 0;
         dy = 0;
@@ -32,6 +37,10 @@ public class Speed implements Component{
         collisionDown = false;
         collisionLeft = false;
         collisionRight = false;
+        tileCollisionDown = null;
+        tileCollisionUp = null;
+        tileCollisionLeft = null;
+        tileCollisionRight = null;
     }
     
     public boolean isZero() {
