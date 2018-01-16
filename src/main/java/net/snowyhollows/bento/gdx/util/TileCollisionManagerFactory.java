@@ -1,5 +1,6 @@
 package net.snowyhollows.bento.gdx.util;
 
+import net.snowyhollows.bento.gdx.factory.TileFactoryFactory;
 import net.snowyhollows.bento.gdx.factory.TiledMapFactory;
 import net.snowyhollows.bento2.Bento;
 import net.snowyhollows.bento2.BentoFactory;
@@ -11,7 +12,7 @@ public enum TileCollisionManagerFactory implements BentoFactory<TileCollisionMan
     public TileCollisionManager createInContext(Bento bento) {
         return new TileCollisionManager(
                 bento.get(TiledMapFactory.IT),
-                bento.get("tiles.tile_factory")
+                bento.get(TileFactoryFactory.IT)
         );
     }
 }
