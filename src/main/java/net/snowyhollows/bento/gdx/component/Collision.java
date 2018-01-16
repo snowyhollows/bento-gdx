@@ -5,6 +5,8 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.math.Rectangle;
 import net.snowyhollows.bento.gdx.util.LevelWalker;
+import net.snowyhollows.bento2.annotation.ByName;
+import net.snowyhollows.bento2.annotation.WithFactory;
 
 public class Collision implements Component {
 
@@ -29,7 +31,14 @@ public class Collision implements Component {
         rect.height = height;
     }
 
-    public Collision(float width, float height, float horizontalOffset, float verticalOffset, int hsubdivision, int vsubdivision) {
+    @WithFactory
+    public Collision(
+            @ByName("collision.width") float width,
+            @ByName("collision.height") float height,
+            @ByName("collision.horizontal_offset") float horizontalOffset,
+            @ByName("collision.vertical_offset") float verticalOffset,
+            @ByName("collision.hsubdivision") int hsubdivision,
+            @ByName("collision.vsubdivision") int vsubdivision) {
         this.width = width;
         this.height = height;
         this.horizontalOffset = horizontalOffset;

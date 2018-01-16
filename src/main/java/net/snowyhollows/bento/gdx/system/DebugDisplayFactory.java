@@ -1,6 +1,7 @@
 package net.snowyhollows.bento.gdx.system;
 
-import net.snowyhollows.bento.gdx.GdxFactories;
+import net.snowyhollows.bento.gdx.factory.OrthographicCameraFactory;
+import net.snowyhollows.bento.gdx.factory.SpriteBatchFactory;
 import net.snowyhollows.bento2.Bento;
 import net.snowyhollows.bento2.BentoFactory;
 
@@ -12,7 +13,7 @@ public enum DebugDisplayFactory implements BentoFactory<DebugDisplay> {
     @Override
     public DebugDisplay createInContext(Bento bento) {
         return new DebugDisplay(
-                bento.get(GdxFactories.SPRITE_BATCH),
-                bento.get(GdxFactories.ORTHOGRAPHIC_CAMERA));
+                bento.get(SpriteBatchFactory.IT),
+                bento.get(OrthographicCameraFactory.IT));
     }
 }

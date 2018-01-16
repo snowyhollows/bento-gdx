@@ -1,14 +1,15 @@
 package net.snowyhollows.bento.gdx.system;
 
+import net.snowyhollows.bento.gdx.component.Mortal;
 import net.snowyhollows.bento.gdx.factory.OrthographicCameraFactory;
 import net.snowyhollows.bento.gdx.factory.SpriteBatchFactory;
 import net.snowyhollows.bento2.Bento;
 import net.snowyhollows.bento2.BentoFactory;
 
-public enum DisplayFactory implements BentoFactory<Display> {
+public enum MortalSystemFactory implements BentoFactory<MortalSystem> {
     IT;
     @Override
-    public Display createInContext(Bento bento) {
-        return new Display(bento.get(SpriteBatchFactory.IT), bento.get(OrthographicCameraFactory.IT));
+    public MortalSystem createInContext(Bento bento) {
+        return new MortalSystem();
     }
 }

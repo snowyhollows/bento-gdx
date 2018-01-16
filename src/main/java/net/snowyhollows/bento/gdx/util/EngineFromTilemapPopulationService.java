@@ -53,7 +53,7 @@ public class EngineFromTilemapPopulationService {
                     objectBento.register("y", (rect.y + rect.height / 2));
                     objectBento.register("width", (rect.width));
                     objectBento.register("height", (rect.height));
-                    objectBento.registerObject("rect", rect);
+                    objectBento.register("rect", rect);
                     Gdx.app.log("chorizo", "rectangle map object detected: " + rect);
                 }
                 if (ob instanceof TextureMapObject) {
