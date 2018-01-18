@@ -11,26 +11,32 @@ import net.snowyhollows.bento.gdx.component.Collision;
 import net.snowyhollows.bento.gdx.component.Looks;
 import net.snowyhollows.bento.gdx.component.Position;
 
-public class DebugDisplay extends IteratingSystem {
+public class DebugDisplaySystem extends IteratingSystem {
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
     public SpriteBatch batch;
     public OrthographicCamera camera;
 
-    public DebugDisplay(SpriteBatch batch, OrthographicCamera camera) {
+    float size;
+    Color color;
+
+
+    public DebugDisplaySystem(SpriteBatch batch, OrthographicCamera camera, float size, String colorHex) {
         this();
         this.batch = batch;
         this.camera = camera;
+        this.size = size;
+        this.color = Color.valueOf(colorHex);
     }
 
-    public DebugDisplay() {
-        super(Family.all(Position.class, Collision.class).get());
+    public DebugDisplaySystem() {
+        super(Family.all(Position.class).get());
     }
 
     @Override
     public void update(float deltaTime) {
         shapeRenderer.setProjectionMatrix(camera.combined);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(Color.CYAN);
+        shapeRenderer.setColor(color);
         super.update(deltaTime);
         shapeRenderer.end();
     }
@@ -38,10 +44,6 @@ public class DebugDisplay extends IteratingSystem {
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
         Position position = Position.mapper.get(entity);
-        Collision collision = Collision.mapper.get(entity);
-        Looks looks = Looks.mapper.get(entity);
-        if (looks == null || looks.visualElement == null) {
-            shapeRenderer.circle(position.x, position.y, collision.width / 2);
-        }
+        shapeRenderer.circle(position.x, position.y, size / 2);
     }
 }

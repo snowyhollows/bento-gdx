@@ -1,7 +1,5 @@
 package net.snowyhollows.bento.gdx.visual;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
 public interface VisualElement<T> {
 
     void update(float delta);
