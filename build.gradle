@@ -9,7 +9,7 @@ plugins {
 }
 
 group 'net.snowyhollows.bento'
-version '1.1.1'
+version '1.2-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'maven'
@@ -19,10 +19,11 @@ sourceCompatibility = 1.8
 
 repositories {
     jcenter()
+    mavenLocal()
 }
 
 jar {
-	from sourceSets.main.allJava
+	from sourceSets.main.allSource
 }
 
 task sourceJar(type: Jar) {
@@ -73,5 +74,6 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile "com.badlogicgames.gdx:gdx:1.6.4"
     compile "com.badlogicgames.ashley:ashley:1.7.0"
-    compile "net.snowyhollows.bento:bento2-core:1.1.1"
+	compile "com.badlogicgames.gdx:gdx-backend-gwt:1.6.4:sources"
+    compile "net.snowyhollows.bento:bento2-core:1.1.2"
 }
