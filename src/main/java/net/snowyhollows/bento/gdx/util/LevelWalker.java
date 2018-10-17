@@ -1,5 +1,7 @@
 package net.snowyhollows.bento.gdx.util;
 
+import com.badlogic.gdx.math.Rectangle;
+
 public class LevelWalker<T> {
     private float lastDx;
     private float lastDy;
@@ -20,18 +22,8 @@ public class LevelWalker<T> {
     }
 
     public interface Collider<T> {
-
-        public T collisionAt(float x, float y);
-
-        public boolean collides(float x, float y, float dx, float dy);
-
-        public float borderAbove(float x, float y);
-
-        public float borderBelow(float x, float y);
-
-        public float borderLeft(float x, float y);
-
-        public float borderRight(float x, float y);
+        T collisionWith(float x, float y);
+        Rectangle collisionBox(float x, float y, Rectangle rectangle);
     }
 
     private float x;
@@ -58,6 +50,8 @@ public class LevelWalker<T> {
         this.y = y;
     }
 
+    private Rectangle tmpRect = new Rectangle();
+
     public void move(Collider<T> collider, CollisionPoint[] collisionPoints, float dx, float dy) {
         leftCollision = null;
         rightCollision = null;
@@ -69,9 +63,10 @@ public class LevelWalker<T> {
                 CollisionPoint collisionPoint = collisionPoints[i];
                 float targetX = x + dx + collisionPoint.x;
                 float targetY = y + collisionPoint.y;
-                if (collider.collides(targetX, targetY, dx, dy)) {
-                    leftCollision = collider.collisionAt(targetX, targetY);
-                    float allowableX = collider.borderRight(targetX, targetY);
+                Rectangle collisionRect = collider.collisionBox(targetX, targetY, tmpRect);
+                if (collisionRect != null) {
+                    leftCollision = collider.collisionWith(targetX, targetY);
+                    float allowableX = (float) collisionRect.x + collisionRect.width;
                     dx = Math.max(dx, allowableX - x - collisionPoint.x);
                 }
             }
@@ -82,9 +77,10 @@ public class LevelWalker<T> {
                 CollisionPoint collisionPoint = collisionPoints[i];
                 float targetX = x + dx + collisionPoint.x;
                 float targetY = y + collisionPoint.y;
-                if (collider.collides(targetX, targetY, dx, dy)) {
-                    rightCollision = collider.collisionAt(targetX, targetY);;
-                    float allowableX = collider.borderLeft(targetX, targetY);
+                Rectangle collisionRect = collider.collisionBox(targetX, targetY, tmpRect);
+                if (collisionRect != null) {
+                    rightCollision = collider.collisionWith(targetX, targetY);;
+                    float allowableX = (float) collisionRect.x;
                     dx = Math.min(dx, allowableX - x - collisionPoint.x - 0.01f);
                 }
             }
@@ -95,9 +91,10 @@ public class LevelWalker<T> {
                 CollisionPoint collisionPoint = collisionPoints[i];
                 float targetX = x + dx + collisionPoint.x;
                 float targetY = y + dy + collisionPoint.y;
-                if (collider.collides(targetX, targetY, dx, dy)) {
-                    topCollision = collider.collisionAt(targetX, targetY);;
-                    float allowableY = collider.borderBelow(targetX, targetY);
+                Rectangle collisionRect = collider.collisionBox(targetX, targetY, tmpRect);
+                if (collisionRect != null) {
+                    topCollision = collider.collisionWith(targetX, targetY);;
+                    float allowableY = (float) collisionRect.y;
                     dy = Math.min(dy, allowableY - y - collisionPoint.y - 0.01f);
                 }
             }
@@ -107,9 +104,10 @@ public class LevelWalker<T> {
                 CollisionPoint collisionPoint = collisionPoints[i];
                 float targetX = x + dx + collisionPoint.x;
                 float targetY = y + dy + collisionPoint.y;
-                if (collider.collides(targetX, targetY, dx, dy)) {
-                    bottomCollision = collider.collisionAt(targetX, targetY);;
-                    float allowableY = collider.borderAbove(targetX, targetY);
+                Rectangle collisionRect = collider.collisionBox(targetX, targetY, tmpRect);
+                if (collisionRect != null) {
+                    bottomCollision = collider.collisionWith(targetX, targetY);;
+                    float allowableY = (float) collisionRect.y + collisionRect.height;
                     dy = Math.max(dy, allowableY - y - collisionPoint.y);
                 }
             }

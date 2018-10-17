@@ -11,7 +11,7 @@ import net.snowyhollows.bento.gdx.util.LevelWalker;
 import net.snowyhollows.bento.gdx.util.TileCollisionManager;
 
 public class Physics extends IteratingSystem {
-    public TileCollisionManager manager;
+    public LevelWalker.Collider manager;
     public LevelWalker levelWalker;
     public float vmin; // = -5f;
     public float gravity; // = 0.3f;
@@ -20,7 +20,7 @@ public class Physics extends IteratingSystem {
         super(Family.all(Position.class, Speed.class, Collision.class).get());
     }
 
-    public Physics(TileCollisionManager manager, LevelWalker levelWalker, float vmin, float gravity) {
+    public Physics(LevelWalker.Collider manager, LevelWalker levelWalker, float vmin, float gravity) {
         this();
         this.manager = manager;
         this.levelWalker = levelWalker;
@@ -33,8 +33,6 @@ public class Physics extends IteratingSystem {
         Speed speed = Speed.mapper.get(entity);
         Position position = Position.mapper.get(entity);
         Collision collision = Collision.mapper.get(entity);
-
-        final float levelWidth = manager.getTileWidth() * manager.getCols();
 
         if (!NoGravity.mapper.has(entity)) {
             speed.dy -= gravity;
@@ -69,11 +67,5 @@ public class Physics extends IteratingSystem {
         position.x = levelWalker.getX();
         position.y = levelWalker.getY();
         
-        while (position.x >= levelWidth) {
-            position.x -= levelWidth;
-        }
-        while (position.x < 0) {
-            position.x += levelWidth;
-        }
     }
 }

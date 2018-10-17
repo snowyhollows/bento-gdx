@@ -5,6 +5,7 @@ import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
 public class TileCollisionManager<T> implements LevelWalker.Collider<T> {
@@ -124,34 +125,26 @@ public class TileCollisionManager<T> implements LevelWalker.Collider<T> {
     }
     
     @Override
-    public float borderAbove(float x, float y) {
-        return (float) (Math.ceil(y / tileHeight) * tileHeight);
-    }
-
-    @Override
-    public float borderBelow(float x, float y) {
-        return (float) (Math.floor(y / tileHeight) * tileHeight);
-    }
-
-    @Override
-    public float borderLeft(float x, float y) {
-        float f = (float) (Math.floor(x / tileWidth) * tileWidth);
-        return f;
-    }
-
-    @Override
-    public float borderRight(float x, float y) {
-        float f = (float) ((Math.ceil(x / tileWidth)) * tileWidth);
-        return f;
-    }
-
-    @Override
-    public T collisionAt(float x, float y) {
+    public T collisionWith(float x, float y) {
         return this.tileAtPixel(x, y);
     }
 
     @Override
-    public boolean collides(float x, float y, float dx, float dy) {
+    public Rectangle collisionBox(float x, float y, Rectangle rectangle) {
+        if (!collides(x,y,0,0)) {
+            return null;
+        } else {
+            rectangle.set(
+                    (float) (Math.floor(x / tileWidth) * tileWidth),
+                    (float) (Math.floor(y / tileHeight) * tileHeight),
+                    tileWidth,
+                    tileHeight
+            );
+            return rectangle;
+        }
+    }
+
+    private boolean collides(float x, float y, float dx, float dy) {
         return tileAtPixel(x, y) != null;
     }
 

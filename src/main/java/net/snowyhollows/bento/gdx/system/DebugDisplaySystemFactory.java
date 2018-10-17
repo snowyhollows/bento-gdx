@@ -8,12 +8,14 @@ import net.snowyhollows.bento2.BentoFactory;
 /**
  * Created by fdreger on 7/4/2017.
  */
-public enum DebugDisplayFactory implements BentoFactory<DebugDisplay> {
+public enum DebugDisplaySystemFactory implements BentoFactory<DebugDisplaySystem> {
     IT;
     @Override
-    public DebugDisplay createInContext(Bento bento) {
-        return new DebugDisplay(
+    public DebugDisplaySystem createInContext(Bento bento) {
+        return new DebugDisplaySystem(
                 bento.get(SpriteBatchFactory.IT),
-                bento.get(OrthographicCameraFactory.IT));
+                bento.get(OrthographicCameraFactory.IT),
+                bento.getFloat("debug_display.size"),
+                bento.getString("debug_display.color"));
     }
 }
