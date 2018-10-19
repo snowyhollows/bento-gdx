@@ -2,6 +2,7 @@ package net.snowyhollows.bento.gdx.visual;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
@@ -14,8 +15,9 @@ public class GdxFramesDrawable implements VisualElement<SpriteBatch> {
     protected int width;
     protected int height;
     protected TextureRegion[] regions;
+    protected Color color = Color.WHITE;
 
-    public GdxFramesDrawable(Array<TextureRegion> regionsArray, float fps, int width, int height) {
+    public GdxFramesDrawable(Array<? extends TextureRegion> regionsArray, float fps, int width, int height) {
         this((TextureRegion[])regionsArray.toArray(TextureRegion.class), fps, width, height);
     }
 
@@ -53,11 +55,16 @@ public class GdxFramesDrawable implements VisualElement<SpriteBatch> {
     @Override
     public void draw(SpriteBatch context, float x, float y, float rotation, float alpha, float scale) {
         SpriteBatch spriteBatch = ((SpriteBatch) context);
-        Color color = spriteBatch.getColor();
+        Color tmpColor = spriteBatch.getColor();
         spriteBatch.setColor(color.r, color.g, color.b, alpha);
         spriteBatch.draw(regions[current], x - width / 2, y - height/ 2,
                 width / 2, height / 2, width, height, scale, scale, rotation);
-        spriteBatch.setColor(color);
+        spriteBatch.setColor(tmpColor);
+    }
+
+    public GdxFramesDrawable withColor(Color color) {
+        this.color = color;
+        return this;
     }
 
 }

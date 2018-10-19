@@ -8,7 +8,7 @@ import com.badlogic.gdx.Input;
  *
  * @author filip
  */
-public class Joystick4 extends EntitySystem  {
+public class Joystick4 extends EntitySystem {
     public int sliceLeft;
     public int sliceRight;
 
@@ -16,6 +16,7 @@ public class Joystick4 extends EntitySystem  {
     public boolean right;
     public boolean up;
     public boolean down;
+    public boolean fire;
     private int sliceBottom;
 
     @Override
@@ -28,6 +29,7 @@ public class Joystick4 extends EntitySystem  {
         right = Gdx.input.isKeyPressed(Input.Keys.RIGHT);
         up = Gdx.input.isKeyPressed(Input.Keys.UP);
         down = Gdx.input.isKeyPressed(Input.Keys.DOWN);
+        fire = Gdx.input.isKeyPressed(Input.Keys.SPACE);
 
         sliceLeft = Gdx.graphics.getWidth() / 6;
         sliceRight = Gdx.graphics.getWidth() / 2;

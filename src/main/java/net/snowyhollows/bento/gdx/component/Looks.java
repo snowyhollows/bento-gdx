@@ -28,4 +28,7 @@ public class Looks implements Component{
         switchTo(name);
     }
 
+    public Looks(VisualElement visualElement) {
+        this.visualElement = visualElement;
+    }
 }

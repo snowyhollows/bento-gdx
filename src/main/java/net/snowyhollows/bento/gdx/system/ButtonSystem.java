@@ -17,6 +17,7 @@ public class ButtonSystem extends IteratingSystem {
 
     public Engine engine;
     public OrthographicCamera camera;
+    private Entity currentlyPressed;
 
     public ButtonSystem(Engine engine, OrthographicCamera camera) {
         this();
@@ -32,6 +33,12 @@ public class ButtonSystem extends IteratingSystem {
     private final Position tempPosition = new Position(0, 0);
 
     @Override
+    public void update(float deltaTime) {
+        currentlyPressed = null;
+        super.update(deltaTime);
+    }
+
+    @Override
     protected void processEntity(Entity entity, float deltaTime) {
         Position position = Position.mapper.get(entity);
         Button button = Button.mapper.get(entity);
@@ -43,6 +50,7 @@ public class ButtonSystem extends IteratingSystem {
             tempPosition.x = temp.x;
             tempPosition.y = temp.y;
             if (position.distanceFrom(tempPosition) < 20) {
+                currentlyPressed = entity;
                 ImmutableArray<Entity> entities = engine.getEntitiesFor(EventTarget.all);
                 for (Entity target : entities) {
                     EventTarget eventTarget = EventTarget.mapper.get(target);
@@ -59,4 +67,7 @@ public class ButtonSystem extends IteratingSystem {
         }
     }
 
+    public Entity getCurrentlyPressed() {
+        return currentlyPressed;
+    }
 }

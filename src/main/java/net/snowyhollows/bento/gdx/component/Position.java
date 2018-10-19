@@ -15,6 +15,11 @@ public class Position implements Component{
         this.y = y;
     }
 
+    public Position(Position other) {
+        this.x = other.x;
+        this.y = other.y;
+    }
+
     public float distanceFrom(Position other) {
         return distanceFrom(other.x, other.y);
     }
