@@ -20,6 +20,14 @@ public class GdxBitmapFontDrawable implements VisualElement<SpriteBatch> {
         this.glyphLayout = new GlyphLayout(font, text);
     }
 
+    public float getWidth() {
+        return glyphLayout.width;
+    }
+
+    public float getHeight() {
+        return glyphLayout.height;
+    }
+
     @Override
     public void update(float delta) {
     }

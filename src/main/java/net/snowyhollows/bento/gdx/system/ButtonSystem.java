@@ -9,6 +9,7 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
+import net.snowyhollows.bento.gdx.component.BoundingBox;
 import net.snowyhollows.bento.gdx.component.Button;
 import net.snowyhollows.bento.gdx.component.EventTarget;
 import net.snowyhollows.bento.gdx.component.Position;
@@ -42,6 +43,7 @@ public class ButtonSystem extends IteratingSystem {
     protected void processEntity(Entity entity, float deltaTime) {
         Position position = Position.mapper.get(entity);
         Button button = Button.mapper.get(entity);
+        BoundingBox boundingBox = BoundingBox.mapper.get(entity);
 
         if (Gdx.input.justTouched()) {
             temp.x = Gdx.input.getX();
@@ -49,7 +51,11 @@ public class ButtonSystem extends IteratingSystem {
             camera.unproject(temp);
             tempPosition.x = temp.x;
             tempPosition.y = temp.y;
-            if (position.distanceFrom(tempPosition) < 20) {
+
+            boolean hasBoundingBox = boundingBox != null;
+            boolean withinBoundingBox = hasBoundingBox && boundingBox.rect.contains(tempPosition.x, tempPosition.y);
+            boolean isSomewhatClose = position.distanceFrom(tempPosition) < 20;
+            if (withinBoundingBox || (!hasBoundingBox && isSomewhatClose)) {
                 currentlyPressed = entity;
                 ImmutableArray<Entity> entities = engine.getEntitiesFor(EventTarget.all);
                 for (Entity target : entities) {
