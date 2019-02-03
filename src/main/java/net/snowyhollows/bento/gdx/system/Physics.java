@@ -38,7 +38,6 @@ public class Physics extends IteratingSystem {
             speed.dy -= gravity;
         }
         
-        // tarcie przy spadaniu
         if (speed.dy < vmin) {
             speed.dy = vmin;
         }

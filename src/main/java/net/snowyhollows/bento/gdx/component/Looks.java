@@ -2,13 +2,13 @@ package net.snowyhollows.bento.gdx.component;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.ComponentMapper;
+import net.snowyhollows.bento.gdx.util.VisualsFactory;
 import net.snowyhollows.bento.gdx.visual.VisualElement;
-import net.snowyhollows.bento2.Bento;
 
-public class Looks implements Component{
+public class Looks implements Component {
 
     public String name;
-    public Bento visualsFactory;
+    public VisualsFactory visualsFactory;
 
     public static ComponentMapper<Looks> mapper = ComponentMapper.getFor(Looks.class);
     public VisualElement visualElement;
@@ -19,11 +19,11 @@ public class Looks implements Component{
         }
         this.name = name;
         if (name != null && !"".equals(name)) {
-            visualElement = visualsFactory.get(name);
+            visualElement = visualsFactory.get(name, visualElement);
         }
     }
 
-    public Looks(String name, Bento visualsFactory) {
+    public Looks(String name, VisualsFactory visualsFactory) {
         this.visualsFactory = visualsFactory;
         switchTo(name);
     }

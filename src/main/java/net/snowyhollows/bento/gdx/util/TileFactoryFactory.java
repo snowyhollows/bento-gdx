@@ -1,4 +1,4 @@
-package net.snowyhollows.bento.gdx.factory;
+package net.snowyhollows.bento.gdx.util;
 
 import net.snowyhollows.bento.gdx.util.StringTileFactory;
 import net.snowyhollows.bento.gdx.util.TileFactory;

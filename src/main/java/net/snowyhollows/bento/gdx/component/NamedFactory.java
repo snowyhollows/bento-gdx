@@ -11,6 +11,6 @@ public enum NamedFactory implements BentoFactory<Named> {
 
     @Override
     public Named createInContext(Bento bento) {
-        return new Named(bento.get("name"));
+        return new Named(bento.getString("name"));
     }
 }

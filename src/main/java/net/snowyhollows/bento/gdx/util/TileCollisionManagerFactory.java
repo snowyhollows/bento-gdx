@@ -1,6 +1,5 @@
 package net.snowyhollows.bento.gdx.util;
 
-import net.snowyhollows.bento.gdx.factory.TileFactoryFactory;
 import net.snowyhollows.bento.gdx.factory.TiledMapFactory;
 import net.snowyhollows.bento2.Bento;
 import net.snowyhollows.bento2.BentoFactory;

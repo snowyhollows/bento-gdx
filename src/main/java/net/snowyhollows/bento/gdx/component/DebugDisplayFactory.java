@@ -14,7 +14,7 @@ public enum DebugDisplayFactory implements BentoFactory<DebugDisplaySystem> {
         return new DebugDisplaySystem(
                 bento.get(SpriteBatchFactory.IT),
                 bento.get(OrthographicCameraFactory.IT),
-                bento.get("debug_display.size"),
-                bento.get("debug_display.color"));
+                bento.getFloat("debug_display.size"),
+                bento.getString("debug_display.color"));
     }
 }
