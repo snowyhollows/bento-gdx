@@ -11,8 +11,7 @@ public class BoundingBox implements Component {
 
     public Rectangle rect;
 
-    @WithFactory
-    public BoundingBox(@ByName("rect") Rectangle rect) {
+    public BoundingBox(Rectangle rect) {
         this.rect = rect;
     }
 }
