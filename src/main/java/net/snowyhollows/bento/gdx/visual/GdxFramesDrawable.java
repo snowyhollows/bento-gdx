@@ -53,8 +53,7 @@ public class GdxFramesDrawable implements VisualElement<SpriteBatch> {
     }
 
     @Override
-    public void draw(SpriteBatch context, float x, float y, float rotation, float alpha, float scale) {
-        SpriteBatch spriteBatch = ((SpriteBatch) context);
+    public void draw(SpriteBatch spriteBatch, float x, float y, float rotation, float alpha, float scale) {
         Color tmpColor = spriteBatch.getColor();
         spriteBatch.setColor(color.r, color.g, color.b, alpha);
         spriteBatch.draw(regions[current], x - width / 2, y - height/ 2,
