@@ -52,6 +52,28 @@ public class GdxFramesDrawableRegistrationAgent {
                 );
             }
         });
+        bento.register("visual." + name + ".static", new BentoFactory<VisualElement<?>>() {
+            @Override
+            public VisualElement<?> createInContext(Bento bento) {
+                return new GdxFramesDrawable(
+                        new TextureRegion[]{regions[0]},
+                        fps,
+                        width,
+                        height
+                );
+            }
+        });
+        bento.register("visual." + name + ".static.vflipped", new BentoFactory<VisualElement<?>>() {
+            @Override
+            public VisualElement<?> createInContext(Bento bento) {
+                return new GdxFramesDrawable(
+                        new TextureRegion[]{regionsFlipped.get(0)},
+                        fps,
+                        width,
+                        height
+                );
+            }
+        });
         bento.register("visual." + name + ".vflipped", new BentoFactory<VisualElement<?>>() {
             @Override
             public VisualElement<?> createInContext(Bento bento) {
