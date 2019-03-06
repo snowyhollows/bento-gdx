@@ -1,4 +1,4 @@
-package net.snowyhollows.bento.gdx.visual;
+package net.snowyhollows.bento.gdx.visual.wrapper;
 
 public interface VisualElement<T> {
 

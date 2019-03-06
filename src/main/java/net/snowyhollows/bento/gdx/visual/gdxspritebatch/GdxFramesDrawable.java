@@ -1,10 +1,10 @@
-package net.snowyhollows.bento.gdx.visual;
+package net.snowyhollows.bento.gdx.visual.gdxspritebatch;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
+import net.snowyhollows.bento.gdx.visual.wrapper.VisualElement;
 
 public class GdxFramesDrawable implements VisualElement<SpriteBatch> {
 

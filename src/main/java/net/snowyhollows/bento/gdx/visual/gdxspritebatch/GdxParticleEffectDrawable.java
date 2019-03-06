@@ -1,7 +1,8 @@
-package net.snowyhollows.bento.gdx.visual;
+package net.snowyhollows.bento.gdx.visual.gdxspritebatch;
 
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import net.snowyhollows.bento.gdx.visual.wrapper.VisualElement;
 
 public class GdxParticleEffectDrawable implements VisualElement<SpriteBatch> {
 

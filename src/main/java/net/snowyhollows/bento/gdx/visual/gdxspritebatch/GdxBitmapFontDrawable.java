@@ -1,9 +1,10 @@
-package net.snowyhollows.bento.gdx.visual;
+package net.snowyhollows.bento.gdx.visual.gdxspritebatch;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import net.snowyhollows.bento.gdx.visual.wrapper.VisualElement;
 
 public class GdxBitmapFontDrawable implements VisualElement<SpriteBatch> {
 

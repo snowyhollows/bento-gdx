@@ -73,6 +73,17 @@ public class EngineFromTilemapPopulationService {
                     objectBento.register("rect", rect);
                     Gdx.app.log("chorizo", "rectangle map object detected: " + rect);
                 }
+                if (ob instanceof TiledMapTileMapObject) {
+                    TiledMapTileMapObject tom = (TiledMapTileMapObject) ob;
+                    objectBento.register("vflipped", tom.isFlipVertically());
+                    objectBento.register("hflipped", tom.isFlipHorizontally());
+                    float width = tom.getTile().getTextureRegion().getRegionWidth();
+                    float height = tom.getTile().getTextureRegion().getRegionWidth();
+                    float x = objectBento.getFloat("x");
+                    float y = objectBento.getFloat("y");
+                    objectBento.register("rect", new Rectangle(x, y , width, height));
+                    Gdx.app.log("chorizo", "tiled map object detected: " + tom);
+                }
                 if (ob instanceof TextureMapObject) {
                     TextureMapObject tmo = (TextureMapObject) ob;
                     objectBento.register("x", (tmo.getX() + tmo.getTextureRegion().getRegionWidth() / 2));

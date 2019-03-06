@@ -1,8 +1,8 @@
 package net.snowyhollows.bento.gdx.util;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import net.snowyhollows.bento.gdx.visual.GdxFramesDrawable;
-import net.snowyhollows.bento.gdx.visual.VisualElement;
+import net.snowyhollows.bento.gdx.visual.gdxspritebatch.GdxFramesDrawable;
+import net.snowyhollows.bento.gdx.visual.wrapper.VisualElement;
 import net.snowyhollows.bento2.Bento;
 import net.snowyhollows.bento2.BentoFactory;
 import net.snowyhollows.bento2.annotation.WithFactory;

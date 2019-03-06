@@ -54,8 +54,7 @@ public class ButtonSystem extends IteratingSystem {
 
             boolean hasBoundingBox = boundingBox != null;
             boolean withinBoundingBox = hasBoundingBox && boundingBox.rect.contains(tempPosition.x, tempPosition.y);
-            boolean isSomewhatClose = position.distanceFrom(tempPosition) < 20;
-            if (withinBoundingBox || (!hasBoundingBox && isSomewhatClose)) {
+            if (withinBoundingBox) {
                 currentlyPressed = entity;
                 ImmutableArray<Entity> entities = engine.getEntitiesFor(EventTarget.all);
                 for (Entity target : entities) {

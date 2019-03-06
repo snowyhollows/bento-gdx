@@ -6,7 +6,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
-import net.snowyhollows.bento.gdx.visual.VisualElement;
+import net.snowyhollows.bento.gdx.visual.wrapper.VisualElement;
 
 /**
  *

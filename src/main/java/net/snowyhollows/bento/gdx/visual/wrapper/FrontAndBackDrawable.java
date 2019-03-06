@@ -1,13 +1,11 @@
-package net.snowyhollows.bento.gdx.visual;
+package net.snowyhollows.bento.gdx.visual.wrapper;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+public class FrontAndBackDrawable<T> implements VisualElement<T> {
 
-public class GdxCompoundDrawable implements VisualElement<SpriteBatch> {
+    final VisualElement<T> back;
+    final VisualElement<T> front;
 
-    final VisualElement back;
-    final VisualElement front;
-
-    public GdxCompoundDrawable(VisualElement back, VisualElement front) {
+    public FrontAndBackDrawable(VisualElement<T> back, VisualElement<T> front) {
         super();
         this.back = back;
         this.front = front;
@@ -20,7 +18,7 @@ public class GdxCompoundDrawable implements VisualElement<SpriteBatch> {
     }
 
     @Override
-    public void draw(SpriteBatch context, float x, float y) {
+    public void draw(T context, float x, float y) {
         draw(context, x, y, 0, 1, 1);
     }
 
@@ -30,7 +28,7 @@ public class GdxCompoundDrawable implements VisualElement<SpriteBatch> {
     }
 
     @Override
-    public void draw(SpriteBatch context, float x, float y, float rotation, float alpha, float scale) {
+    public void draw(T context, float x, float y, float rotation, float alpha, float scale) {
         back.draw(context, x, y, rotation, alpha, scale);
         front.draw(context, x, y, rotation, alpha, scale);
     }

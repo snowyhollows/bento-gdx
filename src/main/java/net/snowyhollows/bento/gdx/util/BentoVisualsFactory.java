@@ -1,6 +1,6 @@
 package net.snowyhollows.bento.gdx.util;
 
-import net.snowyhollows.bento.gdx.visual.VisualElement;
+import net.snowyhollows.bento.gdx.visual.wrapper.VisualElement;
 import net.snowyhollows.bento2.Bento;
 
 public class BentoVisualsFactory implements VisualsFactory {

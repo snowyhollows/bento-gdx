@@ -1,11 +1,9 @@
-package net.snowyhollows.bento.gdx.visual;
+package net.snowyhollows.bento.gdx.visual.wrapper;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+public class VisualExploder<T> implements VisualElement<T> {
+    private final VisualElement<T> visualElement;
 
-public class VisualExploder implements VisualElement<SpriteBatch> {
-    private final VisualElement visualElement;
-
-    public VisualExploder(VisualElement visualElement) {
+    public VisualExploder(VisualElement<T> visualElement) {
         this.visualElement = visualElement;
     }
 
@@ -17,7 +15,7 @@ public class VisualExploder implements VisualElement<SpriteBatch> {
     }
 
     @Override
-    public void draw(SpriteBatch context, float x, float y) {
+    public void draw(T context, float x, float y) {
         float rotation = time * 720;
         float alpha = 1 - time;
         float scale = (float) (1 + Math.sin(time));
@@ -25,7 +23,7 @@ public class VisualExploder implements VisualElement<SpriteBatch> {
     }
 
     @Override
-    public void draw(SpriteBatch context, float x, float y, float r, float a, float s) {
+    public void draw(T context, float x, float y, float r, float a, float s) {
         visualElement.draw(context, x, y, time * 360, a, s);
     }
 

@@ -3,7 +3,7 @@ package net.snowyhollows.bento.gdx.component;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.ComponentMapper;
 import net.snowyhollows.bento.gdx.util.VisualsFactory;
-import net.snowyhollows.bento.gdx.visual.VisualElement;
+import net.snowyhollows.bento.gdx.visual.wrapper.VisualElement;
 
 public class Looks implements Component {
 

@@ -1,20 +1,16 @@
 package net.snowyhollows.bento.gdx.component;
 
-import net.snowyhollows.bento.gdx.factory.OrthographicCameraFactory;
-import net.snowyhollows.bento.gdx.factory.SpriteBatchFactory;
-import net.snowyhollows.bento.gdx.system.DebugDisplaySystem;
 import net.snowyhollows.bento2.Bento;
 import net.snowyhollows.bento2.BentoFactory;
 
-public enum DebugDisplayFactory implements BentoFactory<DebugDisplaySystem> {
+public enum DebugDisplayFactory implements BentoFactory<DebugDisplay> {
     IT;
 
     @Override
-    public DebugDisplaySystem createInContext(Bento bento) {
-        return new DebugDisplaySystem(
-                bento.get(SpriteBatchFactory.IT),
-                bento.get(OrthographicCameraFactory.IT),
-                bento.getFloat("debug_display.size"),
-                bento.getString("debug_display.color"));
+    public DebugDisplay createInContext(Bento bento) {
+        return new DebugDisplay(
+                bento.getFloat("debugdisplay.size"),
+                bento.getEnum(DebugDisplay.Shape.class, "debugdisplay.shape"),
+                bento.getString("debugdisplay.color"));
     }
 }

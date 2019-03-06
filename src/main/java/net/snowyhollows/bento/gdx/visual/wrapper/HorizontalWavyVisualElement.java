@@ -1,14 +1,16 @@
-package net.snowyhollows.bento.gdx.visual;
+package net.snowyhollows.bento.gdx.visual.wrapper;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class RotatingVisualElement implements VisualElement<SpriteBatch> {
-    private final float speed;
+public class HorizontalWavyVisualElement implements VisualElement<SpriteBatch> {
+    private final float amplitude;
+    private final float multiplier;
     private final VisualElement visualElement;
     private float counter;
 
-    public RotatingVisualElement(float speed, VisualElement visualElement) {
-        this.speed = speed;
+    public HorizontalWavyVisualElement(float amplitude, float time, VisualElement visualElement) {
+        this.amplitude = amplitude;
+        this.multiplier = (float) ((2 * Math.PI) / time);
         this.visualElement = visualElement;
     }
 
@@ -24,13 +26,12 @@ public class RotatingVisualElement implements VisualElement<SpriteBatch> {
 
     @Override
     public void draw(SpriteBatch context, float x, float y, float rotation, float alpha, float scale) {
-        visualElement.draw(context, x, y, rotation + counter * this.speed, alpha, scale);
+        visualElement.draw(context, x + (float) (rotation + Math.sin(multiplier * counter)) * amplitude, y , rotation, alpha, scale);
     }
 
     @Override
     public boolean isAnimationFinished() {
         return false;
     }
-    
     
 }
