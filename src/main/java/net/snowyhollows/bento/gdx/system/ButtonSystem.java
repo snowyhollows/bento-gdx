@@ -13,21 +13,18 @@ import net.snowyhollows.bento.gdx.component.BoundingBox;
 import net.snowyhollows.bento.gdx.component.Button;
 import net.snowyhollows.bento.gdx.component.EventTarget;
 import net.snowyhollows.bento.gdx.component.Position;
+import net.snowyhollows.bento.gdx.util.Unprojector;
 
 public class ButtonSystem extends IteratingSystem {
 
-    public Engine engine;
-    public OrthographicCamera camera;
+    private final Engine engine;
+    private final Unprojector unprojector;
     private Entity currentlyPressed;
 
-    public ButtonSystem(Engine engine, OrthographicCamera camera) {
-        this();
-        this.engine = engine;
-        this.camera = camera;
-    }
-
-    public ButtonSystem() {
+    public ButtonSystem(Engine engine, Unprojector unprojector) {
         super(Family.all(Button.class, Position.class).get());
+        this.engine = engine;
+        this.unprojector = unprojector;
     }
 
     private final Vector3 temp = new Vector3();
@@ -48,7 +45,7 @@ public class ButtonSystem extends IteratingSystem {
         if (Gdx.input.justTouched()) {
             temp.x = Gdx.input.getX();
             temp.y = Gdx.input.getY();
-            camera.unproject(temp);
+            unprojector.unproject(temp);
             tempPosition.x = temp.x;
             tempPosition.y = temp.y;
 
