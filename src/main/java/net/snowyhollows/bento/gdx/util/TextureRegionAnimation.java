@@ -10,4 +10,12 @@ public class TextureRegionAnimation {
         this.regions = regions;
         this.intervals = intervals;
     }
+
+    public TextureRegion[] getRegions() {
+        return regions;
+    }
+
+    public int[] getIntervals() {
+        return intervals;
+    }
 }

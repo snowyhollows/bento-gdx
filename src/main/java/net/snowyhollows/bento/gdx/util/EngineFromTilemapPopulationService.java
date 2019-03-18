@@ -4,13 +4,17 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
+import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
+import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Rectangle;
 import net.snowyhollows.bento2.Bento;
 
@@ -77,6 +81,7 @@ public class EngineFromTilemapPopulationService {
                     TiledMapTileMapObject tom = (TiledMapTileMapObject) ob;
                     objectBento.register("vflipped", tom.isFlipVertically());
                     objectBento.register("hflipped", tom.isFlipHorizontally());
+                    objectBento.register("regions", createTextureRegionAnimation(tom.getTile()));
                     float width = tom.getTile().getTextureRegion().getRegionWidth();
                     float height = tom.getTile().getTextureRegion().getRegionWidth();
                     float x = objectBento.getFloat("x");
@@ -110,5 +115,25 @@ public class EngineFromTilemapPopulationService {
                 }
             }
         }
+    }
+
+    private final int[] oneFrameIntervals = {1};
+
+    private TextureRegionAnimation createTextureRegionAnimation(TiledMapTile tile) {
+        if (tile instanceof AnimatedTiledMapTile) {
+            AnimatedTiledMapTile animatedTiledMapTile = (AnimatedTiledMapTile) tile;
+            StaticTiledMapTile[] tiles = animatedTiledMapTile.getFrameTiles();
+            TextureRegion[] regions = new TextureRegion[tiles.length];
+            for (int i = 0; i < regions.length; i++) {
+                regions[i] = tiles[i].getTextureRegion();
+            }
+            return new TextureRegionAnimation(
+                    regions, animatedTiledMapTile.getAnimationIntervals()
+            );
+        }
+        return new TextureRegionAnimation(
+                new TextureRegion[]{tile.getTextureRegion()},
+                oneFrameIntervals
+        );
     }
 }
