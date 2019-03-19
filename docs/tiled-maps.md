@@ -173,6 +173,7 @@ Note that since context of the object inherit from the main context, we can just
 
 
 and now it's enough to inject the debugdisplaysystem and add it to the engine:
+```
 
     @WithFactory
     public FruitTwist(
@@ -205,9 +206,29 @@ and now it's enough to inject the debugdisplaysystem and add it to the engine:
     }
 
 
+```
+
+
 DebugDisplaySystem built by DebugDisplaySystemFactory depends on:
  - OrthographicCamera built by OrthographicCameraFactory
  
 This means that without spaghetti of wiring we can be sure that any 
 changes in the fit viewport will propagate both to debug display and the tiled renderer.
 
+# Animated drawables
+
+Tiled has a GUI for creating animated tiles - as frame-by-frame animations.
+
+The animated tiles can be conveniently used as sprites.
+
+To turn animated tiles into drawables, we can use the `TextureRegionAnimationsProvider`
+ - the class returns all the tiles with "name"
+ property as instances of `TextureRegionAnimation` (i.e. objects containing an array of textureregions and their relevant display times in milliseconds).
+ 
+TextureRegionAminationsProvider, provided by the default factory, depends on:
+* TiledMap, provided by TiledMapFactory
+
+There's also a utility class `GdxFramesDrawableRegistrationAgent` that uses  the provider to
+register all the animations as drawables in the current Bento context.
+
+For example 
