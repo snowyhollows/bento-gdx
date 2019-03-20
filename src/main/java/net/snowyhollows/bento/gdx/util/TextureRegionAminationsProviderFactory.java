@@ -8,6 +8,6 @@ public enum TextureRegionAminationsProviderFactory implements BentoFactory<Textu
   IT;
 
   public TextureRegionAminationsProvider createInContext(Bento bento) {
-    return new TextureRegionAminationsProvider(bento.get(TiledMapFactory.IT), bento);
+    return new TextureRegionAminationsProvider(bento.get(TiledMapFactory.IT));
   }
 }

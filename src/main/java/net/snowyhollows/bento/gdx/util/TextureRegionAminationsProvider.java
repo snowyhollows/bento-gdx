@@ -1,12 +1,3 @@
-/*
- * Copyright (c) 2009-2019 Ericsson AB, Sweden. All rights reserved.
- *
- * The Copyright to the computer program(s) herein is the property of Ericsson AB, Sweden.
- * The program(s) may be used  and/or copied with the written permission from Ericsson AB
- * or in accordance with the terms and conditions stipulated in the agreement/contract under
- * which the program(s) have been supplied.
- *
- */
 package net.snowyhollows.bento.gdx.util;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -16,7 +7,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import net.snowyhollows.bento.gdx.factory.TiledMapFactory;
-import net.snowyhollows.bento2.Bento;
 import net.snowyhollows.bento2.annotation.ByFactory;
 import net.snowyhollows.bento2.annotation.WithFactory;
 
@@ -25,12 +15,10 @@ import java.util.*;
 public class TextureRegionAminationsProvider {
 
 	private final TiledMap tiledMap;
-	private final Bento bento;
 
 	@WithFactory
-	public TextureRegionAminationsProvider(@ByFactory(TiledMapFactory.class) TiledMap tiledMap, Bento bento) {
+	public TextureRegionAminationsProvider(@ByFactory(TiledMapFactory.class) TiledMap tiledMap) {
 		this.tiledMap = tiledMap;
-		this.bento = bento;
 	}
 
 	public Map<String, TextureRegionAnimation> extractAll() {
@@ -64,8 +52,13 @@ public class TextureRegionAminationsProvider {
                         result.put(name,
                                 new TextureRegionAnimation(
                                     regions.toArray(new TextureRegion[0]),
-                                    grains
-                                ));
+                                    grains, tiledMapTile.getProperties()));
+					} else {
+						result.put(name,
+								new TextureRegionAnimation(
+										new TextureRegion[]{tiledMapTile.getTextureRegion()},
+										TextureRegionAnimation.ONE_INTERVAL,
+										tiledMapTile.getProperties()));
 					}
 				}
 			}

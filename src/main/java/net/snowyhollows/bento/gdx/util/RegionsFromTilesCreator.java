@@ -3,9 +3,6 @@ package net.snowyhollows.bento.gdx.util;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 
-/**
- * Created by fdreger on 7/8/2017.
- */
 public class RegionsFromTilesCreator {
 
     private final TiledMap tiledMap;

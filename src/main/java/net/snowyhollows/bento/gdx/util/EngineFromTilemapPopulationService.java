@@ -1,24 +1,19 @@
 package net.snowyhollows.bento.gdx.util;
 
+import java.util.Iterator;
+
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
-import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
-import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Rectangle;
 import net.snowyhollows.bento2.Bento;
-
-import java.util.Iterator;
 
 public class EngineFromTilemapPopulationService {
 
@@ -38,11 +33,8 @@ public class EngineFromTilemapPopulationService {
 
     public void populate(String entityPrefix, String componentPrefix) {
         for (MapLayer layer : tiledMap.getLayers()) {
-            Gdx.app.log("chorizo", "layer: " + layer.getName());
             MapProperties layerProps = layer.getProperties();
-            Gdx.app.log("chorizo", "layer: " + layerProps.get("components", String.class));
             if (layerProps.containsKey("ignored")) {
-                Gdx.app.log("chorizo", "ignoring layer because it is marked as ignored");
                 continue;
             }
             for (MapObject ob : layer.getObjects()) {
@@ -60,7 +52,6 @@ public class EngineFromTilemapPopulationService {
                 final String type = (String) ob.getProperties().get("type");
                 if (containsComponents && type != null) continue;
                 Bento objectBento = parentBento.create();
-                Gdx.app.log("chorizo", "object: " + ob + "; name: " + ob.getName());
                 objectBento.register("name", ob.getName());
                 Iterator<String> keys = ob.getProperties().getKeys();
                 while (keys.hasNext()) {
@@ -75,19 +66,16 @@ public class EngineFromTilemapPopulationService {
                     objectBento.register("width", (rect.width));
                     objectBento.register("height", (rect.height));
                     objectBento.register("rect", rect);
-                    Gdx.app.log("chorizo", "rectangle map object detected: " + rect);
                 }
                 if (ob instanceof TiledMapTileMapObject) {
                     TiledMapTileMapObject tom = (TiledMapTileMapObject) ob;
                     objectBento.register("vflipped", tom.isFlipVertically());
                     objectBento.register("hflipped", tom.isFlipHorizontally());
-                    objectBento.register("regions", createTextureRegionAnimation(tom.getTile()));
                     float width = tom.getTile().getTextureRegion().getRegionWidth();
                     float height = tom.getTile().getTextureRegion().getRegionWidth();
                     float x = objectBento.getFloat("x");
                     float y = objectBento.getFloat("y");
                     objectBento.register("rect", new Rectangle(x, y , width, height));
-                    Gdx.app.log("chorizo", "tiled map object detected: " + tom);
                 }
                 if (ob instanceof TextureMapObject) {
                     TextureMapObject tmo = (TextureMapObject) ob;
@@ -96,20 +84,15 @@ public class EngineFromTilemapPopulationService {
                     objectBento.register("y", (tmo.getY() + tmo.getTextureRegion().getRegionHeight() * 0.5f));
                     objectBento.register("width", tmo.getTextureRegion().getRegionWidth());
                     objectBento.register("height", tmo.getTextureRegion().getRegionHeight());
-                    Gdx.app.log("chorizo", "texture map object detected: " + tmo.getX() + ":" + tmo.getY());
                 }
 
                 final Entity entity = type != null ? (Entity) (objectBento.get(entityPrefix + type)) : new Entity();
                 engine.addEntity(entity);
-                Gdx.app.log("chorizo", "adding entity to engine; current count: " + engine.getEntities().size());
 
                 if (containsComponents) {
-                    Gdx.app.log("chorizo", "components detected");
                     final String[] components = ob.getProperties().get("components").toString().split("\\s*,\\s*");
                     for (String component : components) {
-                        Gdx.app.log("chorizo", "creating component " + component);
                         Component x = (Component) objectBento.get(componentPrefix + component);
-                        Gdx.app.log("chorizo", "created component: " + x);
                         entity.add(x);
                     }
                 }
@@ -117,23 +100,4 @@ public class EngineFromTilemapPopulationService {
         }
     }
 
-    private final int[] oneFrameIntervals = {1};
-
-    private TextureRegionAnimation createTextureRegionAnimation(TiledMapTile tile) {
-        if (tile instanceof AnimatedTiledMapTile) {
-            AnimatedTiledMapTile animatedTiledMapTile = (AnimatedTiledMapTile) tile;
-            StaticTiledMapTile[] tiles = animatedTiledMapTile.getFrameTiles();
-            TextureRegion[] regions = new TextureRegion[tiles.length];
-            for (int i = 0; i < regions.length; i++) {
-                regions[i] = tiles[i].getTextureRegion();
-            }
-            return new TextureRegionAnimation(
-                    regions, animatedTiledMapTile.getAnimationIntervals()
-            );
-        }
-        return new TextureRegionAnimation(
-                new TextureRegion[]{tile.getTextureRegion()},
-                oneFrameIntervals
-        );
-    }
 }
