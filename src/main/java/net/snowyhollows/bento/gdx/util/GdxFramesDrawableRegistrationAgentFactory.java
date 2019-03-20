@@ -7,6 +7,6 @@ public enum GdxFramesDrawableRegistrationAgentFactory implements BentoFactory<Gd
   IT;
 
   public GdxFramesDrawableRegistrationAgent createInContext(Bento bento) {
-    return new GdxFramesDrawableRegistrationAgent(bento.get(TextureRegionAminationsProviderFactory.IT), bento);
+    return new GdxFramesDrawableRegistrationAgent(bento.get(TextureRegionAnimationsProviderFactory.IT), bento);
   }
 }

@@ -12,17 +12,17 @@ import java.util.List;
 import java.util.Map;
 
 public class GdxFramesDrawableRegistrationAgent {
-    private final TextureRegionAminationsProvider textureRegionAminationsProvider;
+    private final TextureRegionAnimationsProvider textureRegionAnimationsProvider;
     private final Bento bento;
 
     @WithFactory
-    public GdxFramesDrawableRegistrationAgent(TextureRegionAminationsProvider textureRegionAminationsProvider, Bento bento) {
-        this.textureRegionAminationsProvider = textureRegionAminationsProvider;
+    public GdxFramesDrawableRegistrationAgent(TextureRegionAnimationsProvider textureRegionAnimationsProvider, Bento bento) {
+        this.textureRegionAnimationsProvider = textureRegionAnimationsProvider;
         this.bento = bento;
     }
 
     public void register() {
-        for (Map.Entry<String, TextureRegionAnimation> entry : textureRegionAminationsProvider.extractAll().entrySet()) {
+        for (Map.Entry<String, TextureRegionAnimation> entry : textureRegionAnimationsProvider.extractAll().entrySet()) {
             TextureRegionAnimation value = entry.getValue();
             register(entry.getKey(), value.regions, value.intervals);
         }
