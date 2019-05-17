@@ -4,9 +4,9 @@ public interface VisualElement<T> {
 
     void update(float delta);
 
-    public void draw(T context, float x, float y);
+    void draw(T context, float x, float y);
 
-    public void draw(T context, float x, float y, float rotation, float alpha, float scale);
+    void draw(T context, float x, float y, float rotation, float alpha, float scale);
 
-    public boolean isAnimationFinished();
+    boolean isAnimationFinished();
 }

@@ -13,7 +13,8 @@ public enum PositionFactory implements BentoFactory<Position> {
     public Position createInContext(Bento bento) {
         return new Position(
                 bento.getFloat("x"),
-                bento.getFloat("y")
+                bento.getFloat("y"),
+		        bento.getFloat("z")
         );
     }
 }
