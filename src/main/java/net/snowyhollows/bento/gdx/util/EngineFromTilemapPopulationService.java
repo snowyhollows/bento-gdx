@@ -1,10 +1,6 @@
 package net.snowyhollows.bento.gdx.util;
 
-import java.util.Iterator;
-
-import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Engine;
-import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
@@ -13,7 +9,10 @@ import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.math.Rectangle;
+import net.snowyhollows.bento.gdx.factory.EntityFactory;
 import net.snowyhollows.bento2.Bento;
+
+import java.util.Iterator;
 
 public class EngineFromTilemapPopulationService {
 
@@ -31,7 +30,7 @@ public class EngineFromTilemapPopulationService {
         populate("","");
     }
 
-    public void populate(String entityPrefix, String componentPrefix) {
+    private void populate(String entityPrefix, String componentPrefix) {
         for (MapLayer layer : tiledMap.getLayers()) {
             MapProperties layerProps = layer.getProperties();
             if (layerProps.containsKey("ignored")) {
@@ -48,11 +47,20 @@ public class EngineFromTilemapPopulationService {
                         }
                     }
                 }
+                // TODO: this is a duplication of logic from EntityFactory
                 final boolean containsComponents = ob.getProperties().containsKey("components");
                 final String type = (String) ob.getProperties().get("type");
                 if (containsComponents && type != null) continue;
                 Bento objectBento = parentBento.create();
-                objectBento.register("name", ob.getName());
+                if (ob.getProperties().containsKey("components")) {
+                    objectBento.register("components", ob.getProperties().get("components"));
+                }
+                if (ob.getProperties().containsKey("type")) {
+                    objectBento.register("type", ob.getProperties().get("type").toString());
+                }
+                if (ob.getName() != null) {
+                    objectBento.register("name", ob.getName());
+                }
                 Iterator<String> keys = ob.getProperties().getKeys();
                 while (keys.hasNext()) {
                     final String key = keys.next();
@@ -80,22 +88,15 @@ public class EngineFromTilemapPopulationService {
                 if (ob instanceof TextureMapObject) {
                     TextureMapObject tmo = (TextureMapObject) ob;
                     objectBento.register("x", (tmo.getX() + tmo.getTextureRegion().getRegionWidth() / 2));
-                    // a trick: texture objects coordinates point to BOTTOM-left, all other point to TOP-left. We have to compensate for that.
+                    // Not obvious:
+                    // texture objects coordinates point to BOTTOM-left, all other point to TOP-left.
+                    // We have to compensate for that.
                     objectBento.register("y", (tmo.getY() + tmo.getTextureRegion().getRegionHeight() * 0.5f));
                     objectBento.register("width", tmo.getTextureRegion().getRegionWidth());
                     objectBento.register("height", tmo.getTextureRegion().getRegionHeight());
                 }
 
-                final Entity entity = type != null ? (Entity) (objectBento.get(entityPrefix + type)) : new Entity();
-                engine.addEntity(entity);
-
-                if (containsComponents) {
-                    final String[] components = ob.getProperties().get("components").toString().split("\\s*,\\s*");
-                    for (String component : components) {
-                        Component x = (Component) objectBento.get(componentPrefix + component);
-                        entity.add(x);
-                    }
-                }
+                objectBento.get(EntityFactory.IT);
             }
         }
     }
