@@ -6,6 +6,7 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import net.snowyhollows.bento.gdx.component.Looks;
+import net.snowyhollows.bento.gdx.component.CustomDisplay;
 import net.snowyhollows.bento.gdx.component.Position;
 
 public class Display extends IteratingSystem {
@@ -20,7 +21,7 @@ public class Display extends IteratingSystem {
     }
 
     public Display() {
-        super(Family.all(Position.class, Looks.class).get());
+        super(Family.all(Position.class, Looks.class).exclude(CustomDisplay.class).get());
     }
 
     @Override

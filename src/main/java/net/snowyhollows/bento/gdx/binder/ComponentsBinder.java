@@ -1,21 +1,6 @@
 package net.snowyhollows.bento.gdx.binder;
 
-import net.snowyhollows.bento.gdx.component.BoundingBoxFactory;
-import net.snowyhollows.bento.gdx.component.ButtonFactory;
-import net.snowyhollows.bento.gdx.component.CameraFocusFactory;
-import net.snowyhollows.bento.gdx.component.CollisionFactory;
-import net.snowyhollows.bento.gdx.component.DeadlyFactory;
-import net.snowyhollows.bento.gdx.component.DebugDisplayFactory;
-import net.snowyhollows.bento.gdx.component.EventTarget;
-import net.snowyhollows.bento.gdx.component.EventTargetFactory;
-import net.snowyhollows.bento.gdx.component.HeroFactory;
-import net.snowyhollows.bento.gdx.component.LooksFactory;
-import net.snowyhollows.bento.gdx.component.MortalFactory;
-import net.snowyhollows.bento.gdx.component.NamedFactory;
-import net.snowyhollows.bento.gdx.component.NoCollisionsFactory;
-import net.snowyhollows.bento.gdx.component.PositionFactory;
-import net.snowyhollows.bento.gdx.component.RotationFactory;
-import net.snowyhollows.bento.gdx.component.SpeedFactory;
+import net.snowyhollows.bento.gdx.component.*;
 import net.snowyhollows.bento2.Bento;
 
 public class ComponentsBinder {
@@ -43,5 +28,6 @@ public class ComponentsBinder {
 		bento.register("component.position", PositionFactory.IT);
 		bento.register("component.speed", SpeedFactory.IT);
 		bento.register("component.rotation", RotationFactory.IT);
+        bento.register("component.customDisplay", CustomDisplayFactory.IT);
 	}
 }
